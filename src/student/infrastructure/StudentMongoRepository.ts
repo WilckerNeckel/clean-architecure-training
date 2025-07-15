@@ -1,5 +1,5 @@
-import { Student } from "../core/entities/Student";
-import { StudentGateway } from "../core/gateways/StudentGateway";
+import { Student } from "../domain/entities/Student";
+import { StudentGateway } from "../domain/gateways/StudentGateway";
 
 export class StudentMongoRepository implements StudentGateway {
     async save(student: Student): Promise<Student> {

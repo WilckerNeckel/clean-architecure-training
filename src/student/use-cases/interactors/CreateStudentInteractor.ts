@@ -1,5 +1,5 @@
-import { Student } from "../../core/entities/Student";
-import { StudentGateway } from "../../core/gateways/StudentGateway";
+import { Student } from "../../domain/entities/Student";
+import { StudentGateway } from "../../domain/gateways/StudentGateway";
 import { CreateStudentRequestModel } from "../dtos/CreateStudentRequestModel";
 import { CreateStudentInputBoundary } from "../input-boundary/CreateStudentInputBoundary";
 import { CreateStudentOutputBoundary } from "../output-boundary/CreateStudentOutputBoundary";
