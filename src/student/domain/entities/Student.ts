@@ -1,22 +1,5 @@
-export type CreateStudent = {
-    registrationNumber: string;
-    name: string;
-    age: number;
-    active: boolean;
-    course: string;
-    admissionDate: Date;
-    lastChange: Date;
-};
-
-export type CreateStudentInput = {
-    registrationNumber: string;
-    name: string;
-    age: number;
-    active?: boolean | null;
-    course: string;
-    admissionDate: Date;
-    lastChange?: string | null;
-};
+import { CreateStudent, CreateStudentInput } from "../models";
+import { StudentValidator } from "../ports/StudentValidator";
 
 export class Student {
     public readonly registrationNumber: string;
@@ -34,28 +17,26 @@ export class Student {
         this.active = props.active;
         this.curso = props.course;
         this.admissionDate = props.admissionDate ?? new Date();
-        this.lastChange = props.lastChange ?? null;
     }
 
-    public static create(props: CreateStudentInput): Student {
-        if (props.name.length < 3)
-            throw new Error("Name of student must has at least 3 characteres");
-
+    public static create(
+        props: CreateStudentInput,
+        validator: StudentValidator
+    ): Student {
         const defaultValues = this.applyDefaultProps(props);
         const resolvedProps = {
             ...props,
             ...defaultValues,
         };
 
-        return new Student(resolvedProps);
+        const validated = validator.validateCreation(resolvedProps);
+
+        return new Student(validated);
     }
 
     private static applyDefaultProps(props: CreateStudentInput) {
         return {
             active: props.active ?? true,
-            lastChange: props.lastChange
-                ? new Date(props.lastChange)
-                : new Date(),
         };
     }
 }
