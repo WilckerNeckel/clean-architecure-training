@@ -1,4 +1,5 @@
 export type CreateStudent = {
+    id: string;
     registrationNumber: string;
     name: string;
     age: number;
