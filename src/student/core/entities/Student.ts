@@ -20,12 +20,12 @@ export type CreateStudentInput = {
 
 export class Student {
     public readonly registrationNumber: string;
-    public name: string;
-    private active: boolean;
-    public age: number;
-    public curso: string;
+    public readonly name: string;
+    private readonly active: boolean;
+    public readonly age: number;
+    public readonly curso: string;
     public readonly admissionDate?: Date | null;
-    private _lastChange?: Date | null;
+    private readonly lastChange?: Date | null;
 
     private constructor(props: CreateStudent) {
         this.registrationNumber = props.registrationNumber;
@@ -34,7 +34,7 @@ export class Student {
         this.active = props.active;
         this.curso = props.course;
         this.admissionDate = props.admissionDate ?? new Date();
-        this._lastChange = props.lastChange ?? null;
+        this.lastChange = props.lastChange ?? null;
     }
 
     public static create(props: CreateStudentInput): Student {
@@ -48,20 +48,6 @@ export class Student {
         };
 
         return new Student(resolvedProps);
-    }
-
-    get lastChange() {
-        return this._lastChange;
-    }
-
-    public deactivate(): void {
-        if (!this.active) throw new Error("Student is already deactive");
-        this.active = true;
-        this.touch();
-    }
-
-    public touch(): void {
-        this._lastChange = new Date();
     }
 
     private static applyDefaultProps(props: CreateStudentInput) {
