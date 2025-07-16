@@ -10,27 +10,20 @@ export class CreateStudentInteractor implements CreateStudentInputBoundary {
         private readonly presenter: CreateStudentOutputBoundary
     ) {}
 
-    async execute(request: CreateStudentRequestModel): Promise<void> {
-        try {
-            const student = Student.create({
-                registrationNumber: request.registrationNumber,
-                name: request.name,
-                age: request.age,
-                course: request.course,
-                admissionDate: request.admissionDate,
-            });
+    async execute(request: CreateStudentRequestModel) {
+        const student = Student.create({
+            registrationNumber: request.registrationNumber,
+            name: request.name,
+            age: request.age,
+            course: request.course,
+            admissionDate: request.admissionDate,
+        });
 
-            await this.studentGateway.save(student);
+        await this.studentGateway.save(student);
 
-            this.presenter.present({
-                success: true,
-                message: "Student created successfully.",
-            });
-        } catch (error) {
-            this.presenter.present({
-                success: false,
-                message: (error as Error).message,
-            });
-        }
+        // this.presenter.present({
+        //     success: true,
+        //     message: "Student created successfully.",
+        // });
     }
 }

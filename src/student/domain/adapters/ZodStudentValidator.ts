@@ -5,7 +5,7 @@ import { StudentValidator } from "../ports/StudentValidator";
 export class ZodStudentValidator implements StudentValidator {
     public validateCreation(input: any): CreateStudent {
         const validator = z.object({
-            id: z.string(),
+            id: z.string().optional(),
             registrationNumber: z.string(),
             name: z.string(),
             age: z.number().min(16),
@@ -26,7 +26,7 @@ export class ZodStudentValidator implements StudentValidator {
             age: z.number().min(16),
             active: z.boolean().optional().nullable(),
             course: z.string(),
-            admissionDate: z.date(),
+            admissionDate: z.string(),
         });
 
         return validator.parse(input);

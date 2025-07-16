@@ -3,5 +3,5 @@ export type CreateStudentRequestModel = {
     name: string;
     age: number;
     course: string;
-    admissionDate: Date;
+    admissionDate: string;
 };

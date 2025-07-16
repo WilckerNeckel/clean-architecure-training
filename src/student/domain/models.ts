@@ -1,5 +1,5 @@
 export type CreateStudent = {
-    id: string;
+    id?: string;
     registrationNumber: string;
     name: string;
     age: number;
@@ -14,5 +14,5 @@ export type CreateStudentInput = {
     age: number;
     active?: boolean | null;
     course: string;
-    admissionDate: Date;
+    admissionDate: string;
 };

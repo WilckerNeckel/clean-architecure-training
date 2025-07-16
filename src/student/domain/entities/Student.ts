@@ -41,6 +41,7 @@ export class Student {
     private static applyDefaultProps(props: CreateStudentInput) {
         return {
             active: props.active ?? true,
+            admissionDate: new Date(props.admissionDate),
         };
     }
 }
