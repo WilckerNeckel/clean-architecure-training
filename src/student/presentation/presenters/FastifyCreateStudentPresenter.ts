@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
-import { CreateStudentResponseModel } from "../../use-cases/dtos/CreateStudentResponseModel";
-import { CreateStudentOutputBoundary } from "../../use-cases/output-boundary/CreateStudentOutputBoundary";
+import { CreateStudentResponseModel } from "../../application/dtos/CreateStudentResponseModel";
+import { CreateStudentOutputBoundary } from "../../application/output-boundary/CreateStudentOutputBoundary";
 
 // Formats the response for Fastify (following Fastify patterns)
 export class FastifyCreateStudentPresenter

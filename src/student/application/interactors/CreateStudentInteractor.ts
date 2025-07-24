@@ -19,11 +19,7 @@ export class CreateStudentInteractor implements CreateStudentInputBoundary {
             admissionDate: request.admissionDate,
         });
 
-        await this.studentGateway.save(student);
-
-        // this.presenter.present({
-        //     success: true,
-        //     message: "Student created successfully.",
-        // });
+        const savedStudent = await this.studentGateway.save(student);
+        return savedStudent;
     }
 }

@@ -1,15 +1,17 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { StudentValidator } from "../../domain/ports/StudentValidator";
-import { CreateStudentInputBoundary } from "../../use-cases/input-boundary/CreateStudentInputBoundary";
+import { CreateStudentInputBoundary } from "../../application/input-boundary/CreateStudentInputBoundary";
 import { StudentMongoRepository } from "../../infrastructure/StudentMongoRepository";
 import { JsonCreateStudentPresenter } from "../presenters/JsonCreateStudentPresenter";
-import { CreateStudentInteractor } from "../../use-cases/interactors/CreateStudentInteractor";
+import { CreateStudentInteractor } from "../../application/interactors/CreateStudentInteractor";
 import { ZodStudentValidator } from "../../domain/adapters/ZodStudentValidator";
+import { CreateStudentOutputBoundary } from "../../application/output-boundary/CreateStudentOutputBoundary";
 
 export class CreateStudentController {
     constructor(
         private readonly createStudentUseCase: CreateStudentInputBoundary,
-        private readonly studentValidator: StudentValidator
+        private readonly studentValidator: StudentValidator,
+        private readonly presenter: CreateStudentOutputBoundary
     ) {}
 
     async handle(request: FastifyRequest, reply: FastifyReply): Promise<void> {
@@ -20,7 +22,7 @@ export class CreateStudentController {
             const result = await this.createStudentUseCase.execute(
                 requestModel
             );
-            reply.send(result);
+            this.presenter.present;
         } catch (error) {
             throw error;
         }
@@ -35,7 +37,11 @@ export const makeCreateStudentController = (
     const presenter = new JsonCreateStudentPresenter(res);
     const useCase = new CreateStudentInteractor(studentGateway, presenter);
     const validator = new ZodStudentValidator();
-    const controller = new CreateStudentController(useCase, validator);
+    const controller = new CreateStudentController(
+        useCase,
+        validator,
+        presenter
+    );
     return controller;
 };
 
