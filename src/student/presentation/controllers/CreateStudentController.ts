@@ -32,7 +32,6 @@ export const makeCreateStudentController = (
     const studentGateway = new StudentMongoRepository();
     const presenter = new JsonCreateStudentPresenter(res);
     const useCase = new CreateStudentInteractor(studentGateway, presenter);
-    const validator = new ZodStudentValidator();
     const controller = new CreateStudentController(useCase);
     return controller;
 };
