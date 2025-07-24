@@ -6,23 +6,19 @@ import { JsonCreateStudentPresenter } from "../presenters/JsonCreateStudentPrese
 import { CreateStudentInteractor } from "../../application/interactors/CreateStudentInteractor";
 import { ZodStudentValidator } from "../../domain/adapters/ZodStudentValidator";
 import { CreateStudentOutputBoundary } from "../../application/output-boundary/CreateStudentOutputBoundary";
+import { createStudentRequestModelValidator } from "../../application/dtos/validators";
 
 export class CreateStudentController {
     constructor(
-        private readonly createStudentUseCase: CreateStudentInputBoundary,
-        private readonly studentValidator: StudentValidator,
-        private readonly presenter: CreateStudentOutputBoundary
+        private readonly createStudentUseCase: CreateStudentInputBoundary
     ) {}
 
     async handle(request: FastifyRequest, reply: FastifyReply): Promise<void> {
         try {
-            const requestModel = this.studentValidator.validateInputCreation(
+            const requestModel = createStudentRequestModelValidator.parse(
                 request.body
             );
-            const result = await this.createStudentUseCase.execute(
-                requestModel
-            );
-            this.presenter.present;
+            await this.createStudentUseCase.execute(requestModel);
         } catch (error) {
             throw error;
         }
@@ -37,11 +33,7 @@ export const makeCreateStudentController = (
     const presenter = new JsonCreateStudentPresenter(res);
     const useCase = new CreateStudentInteractor(studentGateway, presenter);
     const validator = new ZodStudentValidator();
-    const controller = new CreateStudentController(
-        useCase,
-        validator,
-        presenter
-    );
+    const controller = new CreateStudentController(useCase);
     return controller;
 };
 

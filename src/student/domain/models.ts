@@ -1,4 +1,4 @@
-export type CreateStudent = {
+export type CreateStudentDomain = {
     id?: string;
     registrationNumber: string;
     name: string;
@@ -6,13 +6,4 @@ export type CreateStudent = {
     active: boolean;
     course: string;
     admissionDate: Date;
-};
-
-export type CreateStudentInput = {
-    registrationNumber: string;
-    name: string;
-    age: number;
-    active?: boolean | null;
-    course: string;
-    admissionDate: string;
 };

@@ -1,9 +1,9 @@
 import z from "zod";
-import { CreateStudent, CreateStudentInput } from "../models";
+import { CreateStudentDomain } from "../models";
 import { StudentValidator } from "../ports/StudentValidator";
 
 export class ZodStudentValidator implements StudentValidator {
-    public validateCreation(input: any): CreateStudent {
+    public validateCreation(input: any): CreateStudentDomain {
         const validator = z.object({
             id: z.string().optional(),
             registrationNumber: z.string(),
@@ -17,18 +17,4 @@ export class ZodStudentValidator implements StudentValidator {
         return validator.parse(input);
     }
 
-    public validateInputCreation(input: any): CreateStudentInput {
-        const validator = z.object({
-            registrationNumber: z.string(),
-            name: z
-                .string()
-                .min(3, { message: "O nome tem que ter no mínimo 3 letras" }),
-            age: z.number().min(16),
-            active: z.boolean().optional().nullable(),
-            course: z.string(),
-            admissionDate: z.string(),
-        });
-
-        return validator.parse(input);
-    }
 }

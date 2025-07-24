@@ -1,5 +1,6 @@
+import { CreateStudentRequestModel } from "../../application/dtos/CreateStudentRequestModel";
 import { ZodStudentValidator } from "../adapters/ZodStudentValidator";
-import { CreateStudent, CreateStudentInput } from "../models";
+import { CreateStudentDomain } from "../models";
 import { StudentValidator } from "../ports/StudentValidator";
 
 export class Student {
@@ -10,7 +11,7 @@ export class Student {
     public readonly course: string;
     public readonly admissionDate: Date;
 
-    private constructor(props: CreateStudent) {
+    private constructor(props: CreateStudentDomain) {
         this.registrationNumber = props.registrationNumber;
         this.name = props.name;
         this.age = props.age;
@@ -20,7 +21,7 @@ export class Student {
     }
 
     public static create(
-        props: CreateStudentInput,
+        props: any,
         validator: StudentValidator = new ZodStudentValidator()
     ): Student {
         const defaultValues = this.applyDefaultProps(props);
@@ -34,11 +35,11 @@ export class Student {
         return new Student(validated);
     }
 
-    public static fromDb(props: CreateStudent): Student {
+    public static fromDb(props: CreateStudentDomain): Student {
         return new Student(props);
     }
 
-    private static applyDefaultProps(props: CreateStudentInput) {
+    private static applyDefaultProps(props: any) {
         return {
             active: props.active ?? true,
             admissionDate: new Date(props.admissionDate),

@@ -1,6 +1,5 @@
-import { CreateStudent, CreateStudentInput } from "../models";
+import { CreateStudentDomain } from "../models";
 
 export interface StudentValidator {
-    validateCreation: (input: any) => CreateStudent;
-    validateInputCreation: (input: any) => CreateStudentInput;
+    validateCreation: (input: any) => CreateStudentDomain;
 }
