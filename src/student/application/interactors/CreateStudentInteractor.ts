@@ -10,7 +10,7 @@ export class CreateStudentInteractor implements CreateStudentInputBoundary {
         private readonly presenter: CreateStudentOutputBoundary
     ) {}
 
-    async execute(request: CreateStudentRequestModel) {
+    async execute(request: CreateStudentRequestModel): Promise<void> {
         const student = Student.create({
             registrationNumber: request.registrationNumber,
             name: request.name,
@@ -20,6 +20,11 @@ export class CreateStudentInteractor implements CreateStudentInputBoundary {
         });
 
         const savedStudent = await this.studentGateway.save(student);
-        return savedStudent;
+
+        this.presenter.present({
+            message: "Estudante dalvo com sucesso",
+            student: savedStudent,
+            success: true,
+        });
     }
 }
