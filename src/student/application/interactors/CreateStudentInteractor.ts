@@ -22,7 +22,7 @@ export class CreateStudentInteractor implements CreateStudentInputBoundary {
         const savedStudent = await this.studentGateway.save(student);
 
         this.presenter.present({
-            message: "Estudante dalvo com sucesso",
+            message: "Estudante criado com sucesso",
             student: savedStudent,
             success: true,
         });
